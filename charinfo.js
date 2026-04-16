@@ -115,7 +115,7 @@ const CharInfo = (() => {
     for (const s of pool) {
       if (s.characters && s.characters.includes(char)) {
         out.push(s);
-        if (out.length >= 4) break;
+        if (out.length >= 2) break;
       }
     }
     return out;
@@ -138,7 +138,7 @@ const CharInfo = (() => {
 
   // ── Wiktionary data fetch + parse ─────────────────────────────────────────
   async function fetchData(char) {
-    const key = `ci3_${char}`;
+    const key = `ci4_${char}`;
     const hit = sessionStorage.getItem(key);
     if (hit) return JSON.parse(hit);
 
@@ -149,16 +149,7 @@ const CharInfo = (() => {
       fetch(`https://en.wiktionary.org/w/api.php?action=parse&page=${encodeURIComponent(char)}&prop=wikitext&format=json&origin=*`),
     ]);
 
-    // Meaning from REST summary
-    if (sRes.status === 'fulfilled' && sRes.value.ok) {
-      const d   = await sRes.value.json();
-      let   txt = (d.extract || '').trim();
-      // Strip leading "X (pīnyīn) —" prefix Wiktionary sometimes prepends
-      txt = txt.replace(/^.{1,12}[\u0028\uff08][\w\u0101-\u01d3\u00e0-\u00fc\s]+[\u0029\uff09]\s*[\u2013\u2014\-]?\s*/i, '').trim();
-      r.meaning = txt.slice(0, 180) || null;
-    }
-
-    // Radical, strokes, structure from wikitext
+    // Primary source: wikitext (radical, strokes, structure, AND meaning)
     if (wRes.status === 'fulfilled' && wRes.value.ok) {
       const d  = await wRes.value.json();
       const wt = d.parse?.wikitext?.['*'] || '';
@@ -172,12 +163,9 @@ const CharInfo = (() => {
       if (snM)  r.strokes = parseInt(snM[1], 10);
 
       if (idsM) {
-        // Clean wikitext templates inside ids (e.g., {{…}})
         const raw = idsM[1].replace(/\{\{[^}]*\}\}/g, '').replace(/[[\]{}]/g, '').trim();
         const hasChars = [...raw].some(c => isCJK(c));
-        if (hasChars) {
-          r.structure = raw; // e.g., ⿰亻尔  (IDS with operators for visual display)
-        }
+        if (hasChars) r.structure = raw;
       }
 
       // Fallback: Han compound template  {{Han compound|亻|尔|c1=form|c2=sound}}
@@ -190,6 +178,31 @@ const CharInfo = (() => {
           if (comps.length) r.structure = comps.join(' + ');
         }
       }
+
+      // Meaning: parse definition lines from ==Chinese== section
+      // Wikitext format: "# [[gloss]]" lines under part-of-speech headers
+      const chSection = wt.split(/\n==(?:Chinese|Mandarin)==\n/)[1] || wt;
+      const defLines  = chSection.match(/^# (.+)$/mg) || [];
+      if (defLines.length) {
+        const defs = defLines.slice(0, 3)
+          .map(l => l.replace(/^# /, '')
+            .replace(/\[\[([^\]|]*\|)?([^\]]+)\]\]/g, '$2') // [[link|text]] → text
+            .replace(/\{\{[^}]*\}\}/g, '')                  // remove templates
+            .replace(/'''([^']+)'''/g, '$1')                // bold
+            .replace(/''([^']+)''/g, '$1')                  // italic
+            .replace(/;$/, '').trim())
+          .filter(Boolean);
+        if (defs.length) r.meaning = defs.join('; ');
+      }
+    }
+
+    // Fallback meaning: REST summary (if wikitext gave nothing)
+    if (!r.meaning && sRes.status === 'fulfilled' && sRes.value.ok) {
+      const d   = await sRes.value.json();
+      let   txt = (d.extract || '').trim();
+      // Strip leading "X (pīnyīn) —" prefix Wiktionary sometimes prepends
+      txt = txt.replace(/^.{1,12}[\u0028\uff08][\w\u0101-\u01d3\u00e0-\u00fc\s]+[\u0029\uff09]\s*[\u2013\u2014\-]?\s*/i, '').trim();
+      r.meaning = txt.slice(0, 180) || null;
     }
 
     sessionStorage.setItem(key, JSON.stringify(r));

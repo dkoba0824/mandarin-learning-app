@@ -1738,5 +1738,879 @@ const SENTENCES = [
     pattern: "Verb/Adj + 得 + Clause  →  extent complement  新词: 头疼 (headache)",
     category: "Health",
     level: "HSK2"
+  },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // HSK1 – EXTRA SENTENCES
+  // ══════════════════════════════════════════════════════════════════════════
+
+  // ─── INTRODUCTIONS (extra) ───────────────────────────────────────────────
+  {
+    english: "She is my friend.",
+    characters: "她是我的朋友。",
+    pinyin: "Tā shì wǒ de péngyǒu.",
+    pattern: "Subject + 是 + 我的 + Noun",
+    category: "Introductions"
+  },
+  {
+    english: "We are all Chinese.",
+    characters: "我们都是中国人。",
+    pinyin: "Wǒmen dōu shì Zhōngguórén.",
+    pattern: "都 + 是  →  \"all are\"",
+    category: "Introductions"
+  },
+  {
+    english: "He is not my brother.",
+    characters: "他不是我的哥哥。",
+    pinyin: "Tā bú shì wǒ de gēgē.",
+    pattern: "Subject + 不是 + Possessive + Noun",
+    category: "Introductions"
+  },
+  {
+    english: "Is she a teacher?",
+    characters: "她是老师吗？",
+    pinyin: "Tā shì lǎoshī ma?",
+    pattern: "Statement + 吗  →  yes/no question",
+    category: "Introductions"
+  },
+  {
+    english: "I am from China.",
+    characters: "我是中国人。",
+    pinyin: "Wǒ shì Zhōngguórén.",
+    pattern: "我是 + nationality  →  stating origin",
+    category: "Introductions"
+  },
+  {
+    english: "They are all students.",
+    characters: "他们都是学生。",
+    pinyin: "Tāmen dōu shì xuéshēng.",
+    pattern: "都 + 是  →  \"all are\"",
+    category: "Introductions"
+  },
+
+  // ─── GREETINGS (extra) ───────────────────────────────────────────────────
+  {
+    english: "Good morning!",
+    characters: "早上好！",
+    pinyin: "Zǎoshang hǎo!",
+    pattern: "Time-of-day + 好  →  time-specific greeting",
+    category: "Greetings"
+  },
+  {
+    english: "Good evening!",
+    characters: "晚上好！",
+    pinyin: "Wǎnshang hǎo!",
+    pattern: "Time-of-day + 好  →  time-specific greeting",
+    category: "Greetings"
+  },
+  {
+    english: "Sorry, I was late.",
+    characters: "对不起，我来晚了。",
+    pinyin: "Duìbuqǐ, wǒ lái wǎn le.",
+    pattern: "对不起 + explanation  →  apologising",
+    category: "Greetings"
+  },
+  {
+    english: "It doesn't matter.",
+    characters: "没关系。",
+    pinyin: "Méi guānxi.",
+    pattern: "没关系  →  fixed: \"it's OK / no problem\"",
+    category: "Greetings"
+  },
+  {
+    english: "I haven't seen you for a long time!",
+    characters: "好久不见！",
+    pinyin: "Hǎojiǔ bú jiàn!",
+    pattern: "好久不见  →  fixed: \"long time no see\"",
+    category: "Greetings"
+  },
+  {
+    english: "See you tomorrow.",
+    characters: "明天见。",
+    pinyin: "Míngtiān jiàn.",
+    pattern: "Time + 见  →  \"see you [time]\"",
+    category: "Greetings"
+  },
+
+  // ─── LOCATION (extra) ────────────────────────────────────────────────────
+  {
+    english: "Where is the toilet?",
+    characters: "厕所在哪里？",
+    pinyin: "Cèsuǒ zài nǎlǐ?",
+    pattern: "Noun + 在 + 哪里  →  asking location",
+    category: "Location"
+  },
+  {
+    english: "The supermarket is on the left.",
+    characters: "超市在左边。",
+    pinyin: "Chāoshì zài zuǒbiān.",
+    pattern: "Noun + 在 + direction",
+    category: "Location"
+  },
+  {
+    english: "The bank is on the right.",
+    characters: "银行在右边。",
+    pinyin: "Yínháng zài yòubiān.",
+    pattern: "Noun + 在 + direction",
+    category: "Location"
+  },
+  {
+    english: "My home is not far from here.",
+    characters: "我家离这里不远。",
+    pinyin: "Wǒ jiā lí zhèlǐ bù yuǎn.",
+    pattern: "A + 离 + B + 不远  →  A is not far from B",
+    category: "Location"
+  },
+  {
+    english: "The cat is under the chair.",
+    characters: "猫在椅子下面。",
+    pinyin: "Māo zài yǐzi xiàmiàn.",
+    pattern: "Noun + 在 + Object + 下面",
+    category: "Location"
+  },
+  {
+    english: "Is there a hotel near here?",
+    characters: "这附近有没有酒店？",
+    pinyin: "Zhè fùjìn yǒu méiyǒu jiǔdiàn?",
+    pattern: "有没有 + Noun  →  affirmative-negative question",
+    category: "Location"
+  },
+
+  // ─── FOOD & DRINK (extra) ────────────────────────────────────────────────
+  {
+    english: "I don't eat meat.",
+    characters: "我不吃肉。",
+    pinyin: "Wǒ bù chī ròu.",
+    pattern: "Subject + 不 + Verb + Object",
+    category: "Food & Drink"
+  },
+  {
+    english: "Do you want rice or noodles?",
+    characters: "你要米饭还是面条？",
+    pinyin: "Nǐ yào mǐfàn háishi miàntiáo?",
+    pattern: "A + 还是 + B  →  choice question",
+    category: "Food & Drink"
+  },
+  {
+    english: "This dish is a little spicy.",
+    characters: "这道菜有点辣。",
+    pinyin: "Zhè dào cài yǒudiǎn là.",
+    pattern: "有点 + Adj  →  slightly (often negative nuance)",
+    category: "Food & Drink"
+  },
+  {
+    english: "I am full.",
+    characters: "我吃饱了。",
+    pinyin: "Wǒ chī bǎo le.",
+    pattern: "Verb + 饱 + 了  →  resultative complement: ate till full",
+    category: "Food & Drink"
+  },
+  {
+    english: "Please give me a glass of water.",
+    characters: "请给我一杯水。",
+    pinyin: "Qǐng gěi wǒ yī bēi shuǐ.",
+    pattern: "请 + 给 + Person + Quantity  →  polite request",
+    category: "Food & Drink"
+  },
+  {
+    english: "The food here is very delicious.",
+    characters: "这里的食物很好吃。",
+    pinyin: "Zhèlǐ de shíwù hěn hǎochī.",
+    pattern: "Place + 的 + Noun + 很 + Adj",
+    category: "Food & Drink"
+  },
+
+  // ─── SHOPPING (extra) ────────────────────────────────────────────────────
+  {
+    english: "Do you have a smaller size?",
+    characters: "有没有小一点的？",
+    pinyin: "Yǒu méiyǒu xiǎo yīdiǎn de?",
+    pattern: "有没有 + Adj + 一点 + 的  →  asking for a variant",
+    category: "Shopping"
+  },
+  {
+    english: "I want to buy a gift.",
+    characters: "我想买一份礼物。",
+    pinyin: "Wǒ xiǎng mǎi yī fèn lǐwù.",
+    pattern: "想 + Verb + Measure + Noun",
+    category: "Shopping"
+  },
+  {
+    english: "Can you make it cheaper?",
+    characters: "可以便宜一点吗？",
+    pinyin: "Kěyǐ piányí yīdiǎn ma?",
+    pattern: "可以 + Adj + 一点 + 吗  →  asking for discount",
+    category: "Shopping"
+  },
+  {
+    english: "I'll take this one.",
+    characters: "我要这个。",
+    pinyin: "Wǒ yào zhège.",
+    pattern: "我要 + this/that  →  making a selection",
+    category: "Shopping"
+  },
+  {
+    english: "How much does this cost in total?",
+    characters: "这一共多少钱？",
+    pinyin: "Zhè yīgòng duōshao qián?",
+    pattern: "一共 + 多少钱  →  asking total price",
+    category: "Shopping"
+  },
+  {
+    english: "I don't want to buy anything today.",
+    characters: "我今天不想买东西。",
+    pinyin: "Wǒ jīntiān bù xiǎng mǎi dōngxi.",
+    pattern: "今天 + 不想 + Verb  →  negated desire with time",
+    category: "Shopping"
+  },
+
+  // ─── TIME (extra) ────────────────────────────────────────────────────────
+  {
+    english: "What day is today?",
+    characters: "今天是星期几？",
+    pinyin: "Jīntiān shì xīngqī jǐ?",
+    pattern: "今天是星期几  →  asking the day of the week",
+    category: "Time"
+  },
+  {
+    english: "Today is Wednesday.",
+    characters: "今天是星期三。",
+    pinyin: "Jīntiān shì xīngqīsān.",
+    pattern: "今天是 + day-of-week",
+    category: "Time"
+  },
+  {
+    english: "The exam is next Monday.",
+    characters: "考试是下个星期一。",
+    pinyin: "Kǎoshì shì xià ge xīngqīyī.",
+    pattern: "Event + 是 + 下个 + day-of-week",
+    category: "Time"
+  },
+  {
+    english: "I get up at seven o'clock every day.",
+    characters: "我每天七点起床。",
+    pinyin: "Wǒ měitiān qī diǎn qǐchuáng.",
+    pattern: "每天 + Time + Verb  →  habitual action",
+    category: "Time"
+  },
+  {
+    english: "The movie starts at half past eight.",
+    characters: "电影八点半开始。",
+    pinyin: "Diànyǐng bā diǎn bàn kāishǐ.",
+    pattern: "Subject + Time + Verb  →  time before verb",
+    category: "Time"
+  },
+  {
+    english: "How many days are left until the holiday?",
+    characters: "还有几天就放假了？",
+    pinyin: "Hái yǒu jǐ tiān jiù fàngjià le?",
+    pattern: "还有 + Num + 天 + 就 + Verb + 了  →  countdown",
+    category: "Time"
+  },
+
+  // ─── FAMILY (extra) ──────────────────────────────────────────────────────
+  {
+    english: "My younger sister is twelve years old.",
+    characters: "我妹妹十二岁。",
+    pinyin: "Wǒ mèimei shí'èr suì.",
+    pattern: "Subject + Number + 岁  →  stating age",
+    category: "Family"
+  },
+  {
+    english: "His father is a doctor.",
+    characters: "他爸爸是医生。",
+    pinyin: "Tā bàba shì yīshēng.",
+    pattern: "Possessive + family member + 是 + profession",
+    category: "Family"
+  },
+  {
+    english: "Her mother is very beautiful.",
+    characters: "她妈妈很漂亮。",
+    pinyin: "Tā māma hěn piàoliang.",
+    pattern: "Possessive + family member + 很 + Adj",
+    category: "Family"
+  },
+  {
+    english: "Do you have any siblings?",
+    characters: "你有没有兄弟姐妹？",
+    pinyin: "Nǐ yǒu méiyǒu xiōngdì jiěmèi?",
+    pattern: "有没有 + Noun  →  yes-or-no question",
+    category: "Family"
+  },
+  {
+    english: "My older brother is studying in Beijing.",
+    characters: "我哥哥在北京学习。",
+    pinyin: "Wǒ gēgē zài Běijīng xuéxí.",
+    pattern: "Subject + 在 + Place + Verb",
+    category: "Family"
+  },
+  {
+    english: "Our family has five people.",
+    characters: "我家有五口人。",
+    pinyin: "Wǒ jiā yǒu wǔ kǒu rén.",
+    pattern: "家 + 有 + Number + 口 + 人  →  family size",
+    category: "Family"
+  },
+
+  // ─── DAILY LIFE (extra) ──────────────────────────────────────────────────
+  {
+    english: "I go to work every morning.",
+    characters: "我每天早上去上班。",
+    pinyin: "Wǒ měitiān zǎoshang qù shàngbān.",
+    pattern: "每天 + Time + 去 + Verb  →  daily routine",
+    category: "Daily Life"
+  },
+  {
+    english: "I usually listen to music in the evening.",
+    characters: "我晚上一般听音乐。",
+    pinyin: "Wǒ wǎnshang yībān tīng yīnyuè.",
+    pattern: "Time + 一般 + Verb  →  habitual: \"usually\"",
+    category: "Daily Life"
+  },
+  {
+    english: "Can you speak more slowly?",
+    characters: "你能说慢一点吗？",
+    pinyin: "Nǐ néng shuō màn yīdiǎn ma?",
+    pattern: "能 + Verb + Adj + 一点 + 吗  →  polite request",
+    category: "Daily Life"
+  },
+  {
+    english: "I don't understand. Please say it again.",
+    characters: "我不明白。请再说一遍。",
+    pinyin: "Wǒ bù míngbái. Qǐng zài shuō yī biàn.",
+    pattern: "请 + 再 + Verb + 一遍  →  ask to repeat",
+    category: "Daily Life"
+  },
+  {
+    english: "Today I am very tired.",
+    characters: "我今天很累。",
+    pinyin: "Wǒ jīntiān hěn lèi.",
+    pattern: "Subject + 今天 + 很 + Adj",
+    category: "Daily Life"
+  },
+  {
+    english: "I want to sleep.",
+    characters: "我想睡觉。",
+    pinyin: "Wǒ xiǎng shuìjiào.",
+    pattern: "想 + Verb  →  expressing desire",
+    category: "Daily Life"
+  },
+
+  // ─── TRAVEL (extra) ──────────────────────────────────────────────────────
+  {
+    english: "I want to go to Shanghai.",
+    characters: "我想去上海。",
+    pinyin: "Wǒ xiǎng qù Shànghǎi.",
+    pattern: "想 + 去 + Place  →  expressing desire to travel",
+    category: "Travel"
+  },
+  {
+    english: "How long does it take to get there by train?",
+    characters: "坐火车去那里要多长时间？",
+    pinyin: "Zuò huǒchē qù nàlǐ yào duō cháng shíjiān?",
+    pattern: "坐 + Vehicle + 去 + Place + 要 + 多长时间",
+    category: "Travel"
+  },
+  {
+    english: "I need to buy a ticket.",
+    characters: "我需要买票。",
+    pinyin: "Wǒ xūyào mǎi piào.",
+    pattern: "需要 + Verb + Object  →  need to do",
+    category: "Travel"
+  },
+  {
+    english: "The flight departs at ten o'clock.",
+    characters: "飞机十点出发。",
+    pinyin: "Fēijī shí diǎn chūfā.",
+    pattern: "Subject + Time + Verb  →  scheduled departure",
+    category: "Travel"
+  },
+  {
+    english: "This is my first time visiting Beijing.",
+    characters: "这是我第一次来北京。",
+    pinyin: "Zhè shì wǒ dì yī cì lái Běijīng.",
+    pattern: "这是 + 我 + 第一次 + Verb + Place",
+    category: "Travel"
+  },
+  {
+    english: "I got lost.",
+    characters: "我迷路了。",
+    pinyin: "Wǒ mí lù le.",
+    pattern: "Verb + 了  →  completed action: \"I have gotten lost\"",
+    category: "Travel"
+  },
+
+  // ─── WORK & SCHOOL (extra) ────────────────────────────────────────────────
+  {
+    english: "Class starts at eight o'clock.",
+    characters: "八点开始上课。",
+    pinyin: "Bā diǎn kāishǐ shàngkè.",
+    pattern: "Time + 开始 + Verb  →  using 开始 as start marker",
+    category: "Work & School"
+  },
+  {
+    english: "I have a lot of homework today.",
+    characters: "我今天有很多作业。",
+    pinyin: "Wǒ jīntiān yǒu hěn duō zuòyè.",
+    pattern: "有 + 很多 + Noun  →  \"have a lot of\"",
+    category: "Work & School"
+  },
+  {
+    english: "I don't know how to write this character.",
+    characters: "我不会写这个字。",
+    pinyin: "Wǒ bú huì xiě zhège zì.",
+    pattern: "不会 + Verb  →  inability / don't know how",
+    category: "Work & School"
+  },
+  {
+    english: "The teacher is explaining the lesson.",
+    characters: "老师正在讲课。",
+    pinyin: "Lǎoshī zhèngzài jiǎngkè.",
+    pattern: "正在 + Verb  →  action in progress right now",
+    category: "Work & School"
+  },
+  {
+    english: "Working overtime today was very tiring.",
+    characters: "今天加班很辛苦。",
+    pinyin: "Jīntiān jiābān hěn xīnkǔ.",
+    pattern: "Time + activity + 很 + Adj  →  evaluating experience",
+    category: "Work & School"
+  },
+  {
+    english: "I need to prepare for the meeting.",
+    characters: "我需要准备开会。",
+    pinyin: "Wǒ xūyào zhǔnbèi kāihuì.",
+    pattern: "需要 + Verb + Verb  →  need to prepare to",
+    category: "Work & School"
+  },
+
+  // ─── HEALTH (extra) ──────────────────────────────────────────────────────
+  {
+    english: "She caught a cold.",
+    characters: "她感冒了。",
+    pinyin: "Tā gǎnmào le.",
+    pattern: "Verb + 了  →  completed state change: \"has caught a cold\"",
+    category: "Health"
+  },
+  {
+    english: "You should rest more.",
+    characters: "你应该多休息。",
+    pinyin: "Nǐ yīnggāi duō xiūxi.",
+    pattern: "应该 + 多 + Verb  →  advice: \"should do more\"",
+    category: "Health"
+  },
+  {
+    english: "My stomach hurts.",
+    characters: "我肚子疼。",
+    pinyin: "Wǒ dùzi téng.",
+    pattern: "Subject + body part + 疼  →  describing pain",
+    category: "Health"
+  },
+  {
+    english: "I need to see a doctor.",
+    characters: "我需要去看医生。",
+    pinyin: "Wǒ xūyào qù kàn yīshēng.",
+    pattern: "需要 + 去 + Verb  →  need to go do",
+    category: "Health"
+  },
+  {
+    english: "Don't eat too much sweet food.",
+    characters: "不要吃太多甜食。",
+    pinyin: "Bú yào chī tài duō tiánshí.",
+    pattern: "不要 + Verb + 太多 + Noun  →  prohibition",
+    category: "Health"
+  },
+  {
+    english: "How long have you been feeling unwell?",
+    characters: "你不舒服多长时间了？",
+    pinyin: "Nǐ bù shūfu duō cháng shíjiān le?",
+    pattern: "Adj + 多长时间了  →  asking duration of a state",
+    category: "Health"
+  },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // HSK2 – EXTRA SENTENCES
+  // ══════════════════════════════════════════════════════════════════════════
+
+  // ─── INTRODUCTIONS (HSK2 extra) ───────────────────────────────────────────
+  {
+    english: "Although she is young, she is very capable.",
+    characters: "虽然她很年轻，但是能力很强。",
+    pinyin: "Suīrán tā hěn niánqīng, dànshì nénglì hěn qiáng.",
+    pattern: "虽然…但是…  →  concession: \"although…but…\"",
+    category: "Introductions",
+    level: "HSK2"
+  },
+  {
+    english: "Because he works hard, his results are excellent.",
+    characters: "因为他努力，所以成绩很好。",
+    pinyin: "Yīnwèi tā nǔlì, suǒyǐ chéngjì hěn hǎo.",
+    pattern: "因为…所以…  →  cause-and-effect",
+    category: "Introductions",
+    level: "HSK2"
+  },
+  {
+    english: "She has been learning Chinese for two years.",
+    characters: "她学中文学了两年了。",
+    pinyin: "Tā xué Zhōngwén xué le liǎng nián le.",
+    pattern: "Verb + 了 + Duration + 了  →  ongoing action with duration",
+    category: "Introductions",
+    level: "HSK2"
+  },
+  {
+    english: "I think he is a very interesting person.",
+    characters: "我觉得他是一个很有意思的人。",
+    pinyin: "Wǒ juéde tā shì yīgè hěn yǒu yìsi de rén.",
+    pattern: "觉得 + Clause  →  expressing opinion",
+    category: "Introductions",
+    level: "HSK2"
+  },
+
+  // ─── GREETINGS (HSK2 extra) ───────────────────────────────────────────────
+  {
+    english: "How has your work been lately?",
+    characters: "你最近工作怎么样？",
+    pinyin: "Nǐ zuìjìn gōngzuò zěnmeyàng?",
+    pattern: "最近 + topic + 怎么样  →  asking about recent status",
+    category: "Greetings",
+    level: "HSK2"
+  },
+  {
+    english: "Everything has been going well, thanks for asking.",
+    characters: "一切都很好，谢谢你的关心。",
+    pinyin: "Yīqiè dōu hěn hǎo, xièxiè nǐ de guānxīn.",
+    pattern: "一切都 + Adj  →  \"everything is…\"",
+    category: "Greetings",
+    level: "HSK2"
+  },
+  {
+    english: "I hope you had a good rest during the holiday.",
+    characters: "希望你假期休息得不错。",
+    pinyin: "Xīwàng nǐ jiàqī xiūxi de búcuò.",
+    pattern: "希望 + Subject + Verb + 得 + Adj  →  expressing a wish",
+    category: "Greetings",
+    level: "HSK2"
+  },
+
+  // ─── LOCATION (HSK2 extra) ────────────────────────────────────────────────
+  {
+    english: "The company is about two kilometres from here.",
+    characters: "公司离这里大概两公里。",
+    pinyin: "Gōngsī lí zhèlǐ dàgài liǎng gōnglǐ.",
+    pattern: "A + 离 + B + 大概 + Distance",
+    category: "Location",
+    level: "HSK2"
+  },
+  {
+    english: "Turn left at the traffic lights and you will see it.",
+    characters: "在红绿灯那里向左转就看到了。",
+    pinyin: "Zài hónglǜdēng nàlǐ xiàng zuǒ zhuǎn jiù kàndào le.",
+    pattern: "在 + Landmark + 向 + Direction + 转 + 就 + Result",
+    category: "Location",
+    level: "HSK2"
+  },
+  {
+    english: "I have already moved to a new place.",
+    characters: "我已经搬到新地方了。",
+    pinyin: "Wǒ yǐjīng bān dào xīn dìfāng le.",
+    pattern: "已经 + Verb + 到 + Place + 了  →  completed relocation",
+    category: "Location",
+    level: "HSK2"
+  },
+  {
+    english: "Please go straight and then turn right.",
+    characters: "请一直走，然后向右转。",
+    pinyin: "Qǐng yīzhí zǒu, ránhòu xiàng yòu zhuǎn.",
+    pattern: "一直 + Verb, 然后 + Verb  →  sequential directions",
+    category: "Location",
+    level: "HSK2"
+  },
+
+  // ─── FOOD & DRINK (HSK2 extra) ────────────────────────────────────────────
+  {
+    english: "I prefer eating hot food.",
+    characters: "我比较喜欢吃热的东西。",
+    pinyin: "Wǒ bǐjiào xǐhuān chī rè de dōngxi.",
+    pattern: "比较 + Verb  →  comparatively, relatively",
+    category: "Food & Drink",
+    level: "HSK2"
+  },
+  {
+    english: "This restaurant's service is better than last time.",
+    characters: "这家餐厅的服务比上次好多了。",
+    pinyin: "Zhè jiā cāntīng de fúwù bǐ shàng cì hǎo duō le.",
+    pattern: "A + 比 + B + Adj + 多了  →  A is much better than B",
+    category: "Food & Drink",
+    level: "HSK2"
+  },
+  {
+    english: "If you are hungry, I can make noodles for you.",
+    characters: "如果你饿了，我可以给你做面条。",
+    pinyin: "Rúguǒ nǐ è le, wǒ kěyǐ gěi nǐ zuò miàntiáo.",
+    pattern: "如果…，…可以…  →  conditional offer",
+    category: "Food & Drink",
+    level: "HSK2"
+  },
+  {
+    english: "I have already eaten; I am not hungry.",
+    characters: "我已经吃了，不饿。",
+    pinyin: "Wǒ yǐjīng chī le, bù è.",
+    pattern: "已经 + Verb + 了  →  already done",
+    category: "Food & Drink",
+    level: "HSK2"
+  },
+
+  // ─── SHOPPING (HSK2 extra) ────────────────────────────────────────────────
+  {
+    english: "I only have a hundred yuan on me.",
+    characters: "我身上只有一百块钱。",
+    pinyin: "Wǒ shēn shang zhǐ yǒu yī bǎi kuài qián.",
+    pattern: "只有 + Amount  →  only have",
+    category: "Shopping",
+    level: "HSK2"
+  },
+  {
+    english: "This style is more popular than that one.",
+    characters: "这款比那款更受欢迎。",
+    pinyin: "Zhè kuǎn bǐ nà kuǎn gèng shòu huānyíng.",
+    pattern: "A + 比 + B + 更 + Adj  →  A is even more…than B",
+    category: "Shopping",
+    level: "HSK2"
+  },
+  {
+    english: "I'll come back and buy it later.",
+    characters: "我过一会儿再来买。",
+    pinyin: "Wǒ guò yīhuìr zài lái mǎi.",
+    pattern: "过一会儿 + 再 + Verb  →  will do later",
+    category: "Shopping",
+    level: "HSK2"
+  },
+  {
+    english: "Can I pay by mobile phone?",
+    characters: "可以用手机支付吗？",
+    pinyin: "Kěyǐ yòng shǒujī zhīfù ma?",
+    pattern: "可以 + 用 + Tool + Verb + 吗  →  asking permission",
+    category: "Shopping",
+    level: "HSK2"
+  },
+
+  // ─── TIME (HSK2 extra) ────────────────────────────────────────────────────
+  {
+    english: "The meeting has been going on for two hours.",
+    characters: "会议已经开了两个小时了。",
+    pinyin: "Huìyì yǐjīng kāi le liǎng gè xiǎoshí le.",
+    pattern: "已经 + Verb + 了 + Duration + 了  →  ongoing with duration",
+    category: "Time",
+    level: "HSK2"
+  },
+  {
+    english: "He arrives earlier than me every day.",
+    characters: "他每天都比我来得早。",
+    pinyin: "Tā měitiān dōu bǐ wǒ lái de zǎo.",
+    pattern: "A + 比 + B + Verb + 得 + Adj  →  comparative manner complement",
+    category: "Time",
+    level: "HSK2"
+  },
+  {
+    english: "I will finish this work before five o'clock.",
+    characters: "我会在五点前完成这项工作。",
+    pinyin: "Wǒ huì zài wǔ diǎn qián wánchéng zhè xiàng gōngzuò.",
+    pattern: "在 + Time + 前 + Verb  →  deadline",
+    category: "Time",
+    level: "HSK2"
+  },
+  {
+    english: "It has only been three days since he left.",
+    characters: "他离开才三天。",
+    pinyin: "Tā líkāi cái sān tiān.",
+    pattern: "Verb + 才 + Duration  →  only this much time since",
+    category: "Time",
+    level: "HSK2"
+  },
+
+  // ─── FAMILY (HSK2 extra) ──────────────────────────────────────────────────
+  {
+    english: "My parents both like travelling.",
+    characters: "我父母都喜欢旅游。",
+    pinyin: "Wǒ fùmǔ dōu xǐhuān lǚyóu.",
+    pattern: "Subject + 都 + Verb  →  both/all do",
+    category: "Family",
+    level: "HSK2"
+  },
+  {
+    english: "My younger sister is getting married next year.",
+    characters: "我妹妹明年要结婚了。",
+    pinyin: "Wǒ mèimei míngnián yào jiéhūn le.",
+    pattern: "要 + Verb + 了  →  about to do something",
+    category: "Family",
+    level: "HSK2"
+  },
+  {
+    english: "Their relationship is very good.",
+    characters: "他们的关系很好。",
+    pinyin: "Tāmen de guānxi hěn hǎo.",
+    pattern: "Possessive + Noun + 很 + Adj",
+    category: "Family",
+    level: "HSK2"
+  },
+  {
+    english: "My grandfather retired last year.",
+    characters: "我爷爷去年退休了。",
+    pinyin: "Wǒ yéye qùnián tuìxiū le.",
+    pattern: "Time + Verb + 了  →  completed action in the past",
+    category: "Family",
+    level: "HSK2"
+  },
+
+  // ─── DAILY LIFE (HSK2 extra) ──────────────────────────────────────────────
+  {
+    english: "I have already sent the email.",
+    characters: "我已经把邮件发出去了。",
+    pinyin: "Wǒ yǐjīng bǎ yóujiàn fā chūqù le.",
+    pattern: "把 + Object + Verb + 出去 + 了  →  disposal structure",
+    category: "Daily Life",
+    level: "HSK2"
+  },
+  {
+    english: "He seems upset about something.",
+    characters: "他好像有什么不高兴的事。",
+    pinyin: "Tā hǎoxiàng yǒu shénme bù gāoxìng de shì.",
+    pattern: "好像 + Clause  →  it seems…",
+    category: "Daily Life",
+    level: "HSK2"
+  },
+  {
+    english: "I forgot to bring my wallet.",
+    characters: "我忘了带钱包。",
+    pinyin: "Wǒ wàng le dài qiánbāo.",
+    pattern: "忘了 + Verb  →  forgot to do",
+    category: "Daily Life",
+    level: "HSK2"
+  },
+  {
+    english: "This problem is not as difficult as I thought.",
+    characters: "这道题没有我想的那么难。",
+    pinyin: "Zhè dào tí méiyǒu wǒ xiǎng de nàme nán.",
+    pattern: "A + 没有 + B + 那么 + Adj  →  A is not as…as B",
+    category: "Daily Life",
+    level: "HSK2"
+  },
+  {
+    english: "He has been waiting here for over an hour.",
+    characters: "他在这里等了一个多小时了。",
+    pinyin: "Tā zài zhèlǐ děng le yī gè duō xiǎoshí le.",
+    pattern: "Verb + 了 + Duration + 了  →  ongoing past action",
+    category: "Daily Life",
+    level: "HSK2"
+  },
+  {
+    english: "Please clean up your room.",
+    characters: "请把你的房间收拾好。",
+    pinyin: "Qǐng bǎ nǐ de fángjiān shōushi hǎo.",
+    pattern: "请 + 把 + Object + Verb + 好  →  polite 把-disposal",
+    category: "Daily Life",
+    level: "HSK2"
+  },
+
+  // ─── TRAVEL (HSK2 extra) ──────────────────────────────────────────────────
+  {
+    english: "I have already booked the hotel.",
+    characters: "我已经订好酒店了。",
+    pinyin: "Wǒ yǐjīng dìng hǎo jiǔdiàn le.",
+    pattern: "已经 + Verb + 好 + 了  →  finished preparing",
+    category: "Travel",
+    level: "HSK2"
+  },
+  {
+    english: "Although it rained, we still had a great time.",
+    characters: "虽然下雨了，但是我们玩得很开心。",
+    pinyin: "Suīrán xià yǔ le, dànshì wǒmen wán de hěn kāixīn.",
+    pattern: "虽然…但是…  →  concession",
+    category: "Travel",
+    level: "HSK2"
+  },
+  {
+    english: "I prefer travelling by myself.",
+    characters: "我更喜欢一个人旅行。",
+    pinyin: "Wǒ gèng xǐhuān yīgè rén lǚxíng.",
+    pattern: "更 + Verb  →  prefer even more",
+    category: "Travel",
+    level: "HSK2"
+  },
+  {
+    english: "This is the most beautiful place I have ever been to.",
+    characters: "这是我去过最漂亮的地方。",
+    pinyin: "Zhè shì wǒ qù guò zuì piàoliang de dìfāng.",
+    pattern: "去过 + 最 + Adj + 的 + Noun  →  superlative with experience",
+    category: "Travel",
+    level: "HSK2"
+  },
+
+  // ─── WORK & SCHOOL (HSK2 extra) ───────────────────────────────────────────
+  {
+    english: "I have to hand in the report tomorrow.",
+    characters: "我明天要交报告了。",
+    pinyin: "Wǒ míngtiān yào jiāo bàogào le.",
+    pattern: "要 + Verb + 了  →  imminent obligation",
+    category: "Work & School",
+    level: "HSK2"
+  },
+  {
+    english: "He explained this concept very clearly.",
+    characters: "他把这个概念解释得很清楚。",
+    pinyin: "Tā bǎ zhège gàiniàn jiěshì de hěn qīngchǔ.",
+    pattern: "把 + Object + Verb + 得 + Adj  →  degree complement with 把",
+    category: "Work & School",
+    level: "HSK2"
+  },
+  {
+    english: "If you don't understand, raise your hand and ask.",
+    characters: "如果不懂，就举手提问。",
+    pinyin: "Rúguǒ bù dǒng, jiù jǔ shǒu tí wèn.",
+    pattern: "如果 + 不 + Adj, 就 + Action  →  conditional instruction",
+    category: "Work & School",
+    level: "HSK2"
+  },
+  {
+    english: "Her Chinese has improved a lot compared to before.",
+    characters: "她的中文比以前进步了很多。",
+    pinyin: "Tā de Zhōngwén bǐ yǐqián jìnbù le hěn duō.",
+    pattern: "比 + 以前 + Verb + 了 + 很多  →  improvement over past",
+    category: "Work & School",
+    level: "HSK2"
+  },
+
+  // ─── HEALTH (HSK2 extra) ──────────────────────────────────────────────────
+  {
+    english: "He recovered very quickly.",
+    characters: "他恢复得很快。",
+    pinyin: "Tā huīfù de hěn kuài.",
+    pattern: "Verb + 得 + Adv  →  manner/degree complement",
+    category: "Health",
+    level: "HSK2"
+  },
+  {
+    english: "The doctor told me not to eat spicy food.",
+    characters: "医生让我不要吃辣的东西。",
+    pinyin: "Yīshēng ràng wǒ bú yào chī là de dōngxi.",
+    pattern: "让 + Person + 不要 + Verb  →  instructing someone not to",
+    category: "Health",
+    level: "HSK2"
+  },
+  {
+    english: "Sleeping early and waking up early is good for your health.",
+    characters: "早睡早起对身体有好处。",
+    pinyin: "Zǎo shuì zǎo qǐ duì shēntǐ yǒu hǎochù.",
+    pattern: "早 + V1 + 早 + V2 + 对…有好处  →  healthy habit",
+    category: "Health",
+    level: "HSK2"
+  },
+  {
+    english: "His fever has gone down.",
+    characters: "他的发烧退了。",
+    pinyin: "Tā de fāshāo tuì le.",
+    pattern: "Noun + Verb + 了  →  state has changed",
+    category: "Health",
+    level: "HSK2"
   }
 ];
