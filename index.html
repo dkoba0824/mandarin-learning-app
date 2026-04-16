@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HSK Sentence Trainer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── LEVEL SELECTION SCREEN ──────────────────────────────────────── -->
+  <div id="level-screen">
+    <div class="level-hero">
+      <span class="level-logo">汉字</span>
+      <h1>HSK Sentence Trainer</h1>
+      <p class="level-sub">Type the Chinese translation from English.<br>Choose your level to start.</p>
+      <div class="home-stats" id="home-stats">
+        <span class="hs-item" id="hs-streak">🔥 <b id="hs-streak-num">0</b> day streak</span>
+        <span class="hs-sep">·</span>
+        <span class="hs-item" id="hs-due"><b id="hs-due-num">0</b> cards due today</span>
+        <span class="hs-sep">·</span>
+        <a class="hs-link" href="stats.html">📊 Stats</a>
+      </div>
+    </div>
+    <div class="level-grid">
+
+      <div class="level-card">
+        <div class="lc-top">
+          <span class="lc-badge">HSK 1</span>
+          <span class="lc-chars">你好</span>
+        </div>
+        <div class="lc-title">Foundation</div>
+        <div class="lc-count">~135 sentences · 8 categories</div>
+        <ul class="lc-list">
+          <li>Core 150 vocabulary words</li>
+          <li>Essential sentence structures</li>
+          <li>是, 有, 在, 想, 要, 喜欢…</li>
+        </ul>
+        <div class="lc-actions">
+          <button class="lc-btn" data-level="HSK1">📝 Sentences →</button>
+          <a class="lc-btn lc-btn-vocab" href="vocab.html?level=HSK1">📖 Vocabulary →</a>
+        </div>
+      </div>
+
+      <div class="level-card hsk2">
+        <div class="lc-top">
+          <span class="lc-badge">HSK 2</span>
+          <span class="lc-chars">学习</span>
+        </div>
+        <div class="lc-title">Elementary</div>
+        <div class="lc-count">~80 sentences · 11 categories</div>
+        <ul class="lc-list">
+          <li>150 new HSK 2 words</li>
+          <li>Longer, richer sentences</li>
+          <li>比, 虽然, 因为, 如果, 把…</li>
+        </ul>
+        <div class="lc-actions">
+          <button class="lc-btn" data-level="HSK2">📝 Sentences →</button>
+          <a class="lc-btn lc-btn-vocab hsk2" href="vocab.html?level=HSK2">📖 Vocabulary →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── APP SCREEN (shown after level is chosen) ─────────────────────── -->
+  <div id="app-screen" class="hidden">
+
+  <!-- ── HEADER ────────────────────────────────────────────────────── -->
+  <header>
+    <div class="header-left">
+      <button class="back-btn" id="back-to-levels" title="Back to levels">← Levels</button>
+      <span class="logo">汉字</span>
+      <h1>HSK Sentence Trainer</h1>
+      <span class="level-badge" id="level-badge">HSK 1</span>
+    </div>
+    <div class="header-right">
+      <span id="progress-text">Card 1 of 50</span>
+      <span class="divider">|</span>
+      <span id="score-text">✓ 0 &nbsp; ✗ 0</span>
+      <button class="icon-btn" id="speak-mode-btn" title="Toggle speaking practice mode">🎙 Speak</button>
+      <button class="icon-btn" id="reverse-btn" title="Mode: English → Chinese (click to flip)">⇄ Reverse</button>
+      <button class="icon-btn" id="shuffle-btn" title="Shuffle deck">⇄ Shuffle</button>
+    </div>
+  </header>
+
+  <!-- ── PROGRESS BAR ──────────────────────────────────────────────── -->
+  <div class="progress-track">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+
+  <!-- ── CATEGORY FILTER ───────────────────────────────────────────── -->
+  <nav class="category-nav" id="category-nav">
+    <button class="cat-btn active" data-cat="All">All</button>
+    <button class="cat-btn" data-cat="Introductions">Introductions</button>
+    <button class="cat-btn" data-cat="Greetings">Greetings</button>
+    <button class="cat-btn" data-cat="Location">Location</button>
+    <button class="cat-btn" data-cat="Food & Drink">Food &amp; Drink</button>
+    <button class="cat-btn" data-cat="Shopping">Shopping</button>
+    <button class="cat-btn" data-cat="Time">Time</button>
+    <button class="cat-btn" data-cat="Family">Family</button>
+    <button class="cat-btn" data-cat="Daily Life">Daily Life</button>
+    <button class="cat-btn" data-cat="Travel">Travel</button>
+    <button class="cat-btn" data-cat="Work & School">Work &amp; School</button>
+    <button class="cat-btn" data-cat="Health">Health</button>
+  </nav>
+
+  <!-- ── MAIN CARD ─────────────────────────────────────────────────── -->
+  <main>
+    <div class="card" id="card">
+
+      <!-- Category tag -->
+      <span class="card-cat" id="card-cat">Introductions</span>
+
+      <!-- English prompt -->
+      <p class="english" id="english">I am a student.</p>
+      <p class="prompt-pinyin hidden" id="prompt-pinyin"></p>
+
+      <!-- Grammar pattern note -->
+      <div class="pattern-note" id="pattern-note">
+        <span class="pattern-label">Pattern</span>
+        <span class="pattern-text" id="pattern-text">Subject + 是 + Noun → identity / role</span>
+      </div>
+
+      <!-- ── INPUT PHASE ── -->
+      <div id="input-phase">
+        <label class="input-label" for="answer-input">
+          Type the Chinese translation — pinyin or characters:
+        </label>
+        <input
+          id="answer-input"
+          type="text"
+          placeholder="e.g., Wǒ shì xuéshēng  or  我是学生"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+        />
+        <div class="input-actions">
+          <button class="btn btn-ghost" id="hint-btn">💡 Hint</button>
+          <button class="btn btn-ghost" id="skip-btn">Skip →</button>
+          <button class="btn btn-primary" id="check-btn">Check Answer</button>
+        </div>
+        <p class="hint-text hidden" id="hint-text"></p>
+        <!-- Speak mode mic (hidden in type mode) -->
+        <div id="speak-mic-row" class="hidden">
+          <button class="btn btn-mic" id="mic-btn">🎤 Tap to Speak</button>
+          <p class="mic-hint">Speak the Chinese translation clearly, then pause</p>
+        </div>
+      </div>
+
+      <!-- ── ANSWER PHASE (hidden until Check is clicked) ── -->
+      <div id="answer-phase" class="hidden">
+        <div class="your-answer" id="your-answer">
+          <span class="ya-label">Your answer:</span>
+          <span class="ya-text" id="ya-text"></span>
+          <span class="match-badge hidden" id="match-badge"></span>
+        </div>
+
+        <div class="correct-box">
+          <p class="correct-label">Correct answer</p>
+          <p class="chars" id="correct-chars">我是学生。</p>
+          <p class="pinyin" id="correct-pinyin">Wǒ shì xuéshēng.</p>
+        </div>
+
+        <!-- Pronunciation scores (speak mode only) -->
+        <div id="pron-scores-row" class="hidden">
+          <div class="pron-scores">
+            <div class="ps-item"><span class="ps-val" id="ps-pron">-</span><span class="ps-lbl">Overall</span></div>
+            <div class="ps-item"><span class="ps-val" id="ps-acc">-</span><span class="ps-lbl">Accuracy</span></div>
+            <div class="ps-item"><span class="ps-val" id="ps-flu">-</span><span class="ps-lbl">Fluency</span></div>
+          </div>
+          <p class="tone-feedback" id="tone-feedback"></p>
+        </div>
+
+        <div class="grade-row">
+          <button class="btn btn-success" id="got-it-btn">✓ Got it!</button>
+          <button class="btn btn-danger"  id="missed-btn">✗ Still learning</button>
+        </div>
+        <p class="keyboard-hint">or press <kbd>K</kbd> / <kbd>J</kbd></p>
+        <div class="draw-row">
+          <button class="btn btn-draw hidden" id="draw-btn">✏️ Draw it</button>
+          <button class="btn btn-speak hidden" id="speak-btn">🔊 Hear it</button>
+        </div>
+      </div>
+
+    </div><!-- /card -->
+  </main>
+
+  <!-- ── RESULTS MODAL ─────────────────────────────────────────────── -->
+  <div class="modal-overlay hidden" id="modal">
+    <div class="modal-box">
+      <h2>Deck complete! 🎉</h2>
+      <div class="result-stats">
+        <div class="rstat green">
+          <span class="rnum" id="r-correct">0</span>
+          <span class="rlabel">Got it</span>
+        </div>
+        <div class="rstat red">
+          <span class="rnum" id="r-wrong">0</span>
+          <span class="rlabel">Still learning</span>
+        </div>
+        <div class="rstat">
+          <span class="rnum" id="r-pct">0%</span>
+          <span class="rlabel">Score</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="restart-btn">↺ Restart deck</button>
+        <button class="btn btn-ghost"   id="review-btn">Review missed cards</button>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- /app-screen -->
+
+  <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+  <script src="db.js"></script>
+  <script src="data.js"></script>
+  <script src="hsk1-vocab.js"></script>
+  <script src="hsk2-vocab.js"></script>
+  <script src="audio.js"></script>
+  <script src="speak-mode.js"></script>
+  <script src="app.js"></script>
+  <script src="charinfo.js"></script>
+  <script src="draw.js"></script>
+  <script>
+    // Populate homepage streak + due count
+    document.addEventListener('DOMContentLoaded', () => {
+      const { streak } = DB.getStreak();
+      document.getElementById('hs-streak-num').textContent = streak;
+      document.getElementById('hs-due-num').textContent    = DB.getDueCount();
+    });
+  </script>
+  <!-- ── DRAW MODAL ──────────────────────────────────────────── -->
+  <div class="draw-overlay hidden" id="draw-modal">
+    <div class="draw-box">
+      <button class="draw-close" id="draw-close">✕</button>
+      <h3 class="draw-heading" id="draw-title">Draw</h3>
+      <div class="draw-canvas" id="draw-canvas"></div>
+      <p class="draw-status" id="draw-status"></p>
+      <div class="draw-nav">
+        <button class="btn btn-ghost" id="draw-prev">← Prev</button>
+        <button class="btn btn-ghost" id="draw-next">Next →</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

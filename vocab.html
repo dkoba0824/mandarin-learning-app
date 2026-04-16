@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HSK Vocabulary Trainer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── HEADER ──────────────────────────────────────────────────────────── -->
+  <header>
+    <div class="header-left">
+      <button class="back-btn" id="back-btn" title="Back to levels">← Levels</button>
+      <span class="logo">汉字</span>
+      <h1 id="page-heading">HSK 1 Vocabulary</h1>
+      <span class="level-badge" id="level-badge">HSK 1</span>
+    </div>
+    <div class="header-right">
+      <span id="progress-text">Word 1 of 150</span>
+      <span class="divider">|</span>
+      <span id="score-text">✓ 0 &nbsp; ✗ 0</span>
+      <button class="icon-btn" id="speak-mode-btn" title="Toggle speaking practice mode">🎙 Speak</button>
+      <button class="icon-btn" id="reverse-btn" title="Mode: English → Chinese (click to flip)">⇄ Reverse</button>
+      <button class="icon-btn" id="shuffle-btn" title="Shuffle deck">⇄ Shuffle</button>
+    </div>
+  </header>
+
+  <!-- ── PROGRESS BAR ────────────────────────────────────────────────────── -->
+  <div class="progress-track">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+
+  <!-- ── SUBTITLE ────────────────────────────────────────────────────────── -->
+  <p class="vocab-page-sub" id="page-sub">Type the Chinese characters or pinyin for each English word.</p>
+
+  <!-- ── WORD TYPE FILTER ─────────────────────────────────────────────────── -->
+  <nav class="category-nav" id="type-nav">
+    <button class="cat-btn active" data-type="All">All</button>
+    <button class="cat-btn" data-type="noun">Nouns</button>
+    <button class="cat-btn" data-type="verb">Verbs</button>
+    <button class="cat-btn" data-type="adj">Adjectives</button>
+    <button class="cat-btn" data-type="adv">Adverbs</button>
+    <button class="cat-btn" data-type="pron">Pronouns</button>
+    <button class="cat-btn" data-type="num">Numbers</button>
+    <button class="cat-btn" data-type="mw">Measure Words</button>
+    <button class="cat-btn" data-type="conj">Conjunctions</button>
+    <button class="cat-btn" data-type="prep">Prepositions</button>
+    <button class="cat-btn" data-type="particle">Particles</button>
+    <button class="cat-btn" data-type="interj">Expressions</button>
+  </nav>
+
+  <!-- ── MAIN CARD ─────────────────────────────────────────────────────── -->
+  <main>
+    <div class="card" id="card">
+
+      <!-- Word type badge -->
+      <span class="card-cat" id="word-type">noun</span>
+
+      <!-- English prompt -->
+      <p class="english" id="prompt-word">hello</p>
+
+      <!-- ── INPUT PHASE ── -->
+      <div id="vocab-input-phase">
+        <label class="input-label" for="vocab-input">
+          Type the Chinese translation — pinyin or characters:
+        </label>
+        <input
+          id="vocab-input"
+          type="text"
+          placeholder="e.g., nǐ hǎo  or  你好"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+        />
+        <div class="input-actions">
+          <button class="btn btn-ghost" id="hint-btn">💡 Hint</button>
+          <button class="btn btn-ghost" id="skip-btn">Skip →</button>
+          <button class="btn btn-primary" id="check-btn">Check Answer</button>
+        </div>
+        <p class="hint-text hidden" id="vocab-hint"></p>
+        <!-- Speak mode mic (hidden in type mode) -->
+        <div id="speak-mic-row" class="hidden">
+          <button class="btn btn-mic" id="mic-btn">🎤 Tap to Speak</button>
+          <p class="mic-hint">Speak the Chinese translation clearly, then pause</p>
+        </div>
+      </div>
+
+      <!-- ── ANSWER PHASE ── -->
+      <div id="vocab-answer-phase" class="hidden">
+        <div class="your-answer">
+          <span class="ya-label">Your answer:</span>
+          <span class="ya-text" id="vocab-ya-text"></span>
+          <span class="match-badge hidden" id="vocab-match-badge"></span>
+        </div>
+
+        <div class="correct-box">
+          <p class="correct-label">Correct answer</p>
+          <p class="chars" id="ans-word">你好</p>
+          <p class="pinyin" id="ans-pinyin">nǐ hǎo</p>
+        </div>
+
+        <!-- Pronunciation scores (speak mode only) -->
+        <div id="pron-scores-row" class="hidden">
+          <div class="pron-scores">
+            <div class="ps-item"><span class="ps-val" id="ps-pron">-</span><span class="ps-lbl">Overall</span></div>
+            <div class="ps-item"><span class="ps-val" id="ps-acc">-</span><span class="ps-lbl">Accuracy</span></div>
+            <div class="ps-item"><span class="ps-val" id="ps-flu">-</span><span class="ps-lbl">Fluency</span></div>
+          </div>
+          <p class="tone-feedback" id="tone-feedback"></p>
+        </div>
+
+        <div class="grade-row">
+          <button class="btn btn-success" id="got-it-btn">✓ Got it!</button>
+          <button class="btn btn-danger"  id="missed-btn">✗ Still learning</button>
+        </div>
+        <p class="keyboard-hint">or press <kbd>K</kbd> / <kbd>J</kbd></p>
+        <div class="draw-row">
+          <button class="btn btn-draw hidden" id="draw-btn">✏️ Draw it</button>
+          <button class="btn btn-speak hidden" id="speak-btn">🔊 Hear it</button>
+        </div>
+      </div>
+
+    </div><!-- /card -->
+  </main>
+
+  <!-- ── RESULTS MODAL ─────────────────────────────────────────────────── -->
+  <div class="modal-overlay hidden" id="modal">
+    <div class="modal-box">
+      <h2>Deck complete! 🎉</h2>
+      <div class="result-stats">
+        <div class="rstat green">
+          <span class="rnum" id="r-correct">0</span>
+          <span class="rlabel">Got it</span>
+        </div>
+        <div class="rstat red">
+          <span class="rnum" id="r-wrong">0</span>
+          <span class="rlabel">Still learning</span>
+        </div>
+        <div class="rstat">
+          <span class="rnum" id="r-pct">0%</span>
+          <span class="rlabel">Score</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="restart-btn">↺ Restart deck</button>
+        <button class="btn btn-ghost"   id="review-btn">Review missed cards</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+  <script src="db.js"></script>
+  <script src="hsk1-vocab.js"></script>
+  <script src="hsk2-vocab.js"></script>
+  <script src="audio.js"></script>
+  <script src="speak-mode.js"></script>
+  <script src="vocab.js"></script>
+  <script src="charinfo.js"></script>
+  <script src="draw.js"></script>
+  <!-- ── DRAW MODAL ──────────────────────────────────────────── -->
+  <div class="draw-overlay hidden" id="draw-modal">
+    <div class="draw-box">
+      <button class="draw-close" id="draw-close">✕</button>
+      <h3 class="draw-heading" id="draw-title">Draw</h3>
+      <div class="draw-canvas" id="draw-canvas"></div>
+      <p class="draw-status" id="draw-status"></p>
+      <div class="draw-nav">
+        <button class="btn btn-ghost" id="draw-prev">← Prev</button>
+        <button class="btn btn-ghost" id="draw-next">Next →</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HSK Stats</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="header-left">
+      <a class="back-btn" href="index.html">← Home</a>
+      <span class="logo">汉字</span>
+      <h1>Progress &amp; Stats</h1>
+    </div>
+    <div class="header-right">
+      <button class="icon-btn danger-btn" id="reset-btn">🗑 Reset all progress</button>
+    </div>
+  </header>
+
+  <main class="stats-main">
+
+    <!-- ── Streak banner ───────────────────────────────────────────────── -->
+    <div class="stat-banner">
+      <div class="sb-item">
+        <span class="sb-icon">🔥</span>
+        <span class="sb-num" id="sb-streak">0</span>
+        <span class="sb-label">Day streak</span>
+      </div>
+      <div class="sb-item">
+        <span class="sb-icon">📅</span>
+        <span class="sb-num" id="sb-due">0</span>
+        <span class="sb-label">Cards due today</span>
+      </div>
+      <div class="sb-item">
+        <span class="sb-icon">✅</span>
+        <span class="sb-num" id="sb-mastered">0</span>
+        <span class="sb-label">Cards mastered</span>
+      </div>
+      <div class="sb-item">
+        <span class="sb-icon">🎯</span>
+        <span class="sb-num" id="sb-accuracy">—</span>
+        <span class="sb-label">Overall accuracy</span>
+      </div>
+    </div>
+
+    <!-- ── Deck breakdown ──────────────────────────────────────────────── -->
+    <section class="stat-section">
+      <h2 class="stat-heading">Deck Breakdown</h2>
+      <div class="deck-grid" id="deck-grid">
+        <!-- filled by stats.js -->
+      </div>
+    </section>
+
+    <!-- ── Weakest cards ───────────────────────────────────────────────── -->
+    <section class="stat-section">
+      <h2 class="stat-heading">Needs Most Work <span class="stat-sub">top 15 hardest cards</span></h2>
+      <div class="weak-table-wrap">
+        <table class="weak-table" id="weak-table">
+          <thead>
+            <tr>
+              <th>Card</th>
+              <th>Deck</th>
+              <th>Correct</th>
+              <th>Wrong</th>
+              <th>Accuracy</th>
+              <th>Streak</th>
+              <th>Next review</th>
+            </tr>
+          </thead>
+          <tbody id="weak-tbody">
+            <!-- filled by stats.js -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Export / Import ────────────────────────────────────────────── -->
+    <section class="stat-section">
+      <h2 class="stat-heading">Backup &amp; Restore</h2>
+      <div class="backup-row">
+        <button class="btn btn-ghost" id="export-btn">⬇ Export JSON</button>
+        <label class="btn btn-ghost" for="import-file">⬆ Import JSON</label>
+        <input type="file" id="import-file" accept=".json" class="hidden" />
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Reset confirm modal -->
+  <div class="modal-overlay hidden" id="reset-modal">
+    <div class="modal-box">
+      <h2>Reset all progress?</h2>
+      <p style="margin:12px 0;color:#666;font-size:.9rem">This cannot be undone. Export a backup first if you want to keep your data.</p>
+      <div class="modal-actions">
+        <button class="btn btn-danger" id="reset-confirm">Yes, reset</button>
+        <button class="btn btn-ghost"  id="reset-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="db.js"></script>
+  <script src="data.js"></script>
+  <script src="hsk1-vocab.js"></script>
+  <script src="hsk2-vocab.js"></script>
+  <script src="stats.js"></script>
+</body>
+</html>
