@@ -78,6 +78,7 @@
       <span id="progress-text">Card 1 of 50</span>
       <span class="divider">|</span>
       <span id="score-text">✓ 0 &nbsp; ✗ 0</span>
+      <button class="icon-btn" id="listen-mode-btn" title="Toggle listening practice mode">🎧 Listen</button>
       <button class="icon-btn" id="speak-mode-btn" title="Toggle speaking practice mode">🎙 Speak</button>
       <button class="icon-btn" id="reverse-btn" title="Mode: English → Chinese (click to flip)">⇄ Reverse</button>
       <button class="icon-btn" id="shuffle-btn" title="Shuffle deck">⇄ Shuffle</button>
@@ -142,6 +143,11 @@
           <button class="btn btn-primary" id="check-btn">Check Answer</button>
         </div>
         <p class="hint-text hidden" id="hint-text"></p>
+        <!-- Listen mode play-again (hidden in type/speak mode) -->
+        <div id="play-again-row" class="hidden">
+          <button class="btn btn-play-again" id="play-again-btn">🔊 Play again</button>
+          <p class="listen-hint">Type what you hear — characters or pinyin — then press Check</p>
+        </div>
         <!-- Speak mode mic (hidden in type mode) -->
         <div id="speak-mic-row" class="hidden">
           <button class="btn btn-mic" id="mic-btn">🎤 Tap to Speak</button>
@@ -161,6 +167,7 @@
           <p class="correct-label">Correct answer</p>
           <p class="chars" id="correct-chars">我是学生。</p>
           <p class="pinyin" id="correct-pinyin">Wǒ shì xuéshēng.</p>
+          <p class="listen-english hidden" id="listen-english"></p>
         </div>
 
         <!-- Pronunciation scores (speak mode only) -->

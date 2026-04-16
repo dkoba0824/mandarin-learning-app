@@ -40,6 +40,7 @@ class VocabApp {
     this.hintCount   = 0;
     this.reverseMode = false; // word → English when true
     this.speakMode   = false; // Azure pronunciation assessment mode
+    this.listenMode  = false; // Audio plays, user types what they hear
 
     this._bindElements();
     this._bindEvents();
@@ -69,12 +70,15 @@ class VocabApp {
     this.elDrawBtn     = document.getElementById('draw-btn');
     this.elSpeakBtn    = document.getElementById('speak-btn');
     this.elReverseBtn  = document.getElementById('reverse-btn');
-    this.elSpeakModeBtn = document.getElementById('speak-mode-btn');
-    this.elMicRow      = document.getElementById('speak-mic-row');
-    this.elMicBtn      = document.getElementById('mic-btn');
-    this.elPronRow     = document.getElementById('pron-scores-row');
-    this.elInputLabel  = document.querySelector('.input-label');
-    this.elInputActions= document.querySelector('.input-actions');
+    this.elSpeakModeBtn  = document.getElementById('speak-mode-btn');
+    this.elListenModeBtn = document.getElementById('listen-mode-btn');
+    this.elMicRow        = document.getElementById('speak-mic-row');
+    this.elMicBtn        = document.getElementById('mic-btn');
+    this.elPronRow       = document.getElementById('pron-scores-row');
+    this.elPlayAgainRow  = document.getElementById('play-again-row');
+    this.elListenEnglish = document.getElementById('listen-english');
+    this.elInputLabel    = document.querySelector('.input-label');
+    this.elInputActions  = document.querySelector('.input-actions');
   }
 
   // ── Events ────────────────────────────────────────────────────────────────
@@ -97,8 +101,13 @@ class VocabApp {
       if (entry) Audio.speakChinese(entry.word);
     });
     document.getElementById('reverse-btn').addEventListener('click', () => this._toggleReverse());
-    document.getElementById('speak-mode-btn').addEventListener('click', () => this._toggleSpeakMode());
-    document.getElementById('mic-btn').addEventListener('click', () => this._startListening());
+    document.getElementById('speak-mode-btn') .addEventListener('click', () => this._toggleSpeakMode());
+    document.getElementById('listen-mode-btn').addEventListener('click', () => this._toggleListenMode());
+    document.getElementById('mic-btn')         .addEventListener('click', () => this._startListening());
+    document.getElementById('play-again-btn')  .addEventListener('click', () => {
+      const entry = this.deck[this.index];
+      if (entry) Audio.speakChinese(entry.word);
+    });
 
     document.getElementById('type-nav').addEventListener('click', e => {
       const btn = e.target.closest('.cat-btn');
@@ -126,7 +135,21 @@ class VocabApp {
     this._updateStats();
   }
 
+  _toggleListenMode() {
+    this.listenMode = !this.listenMode;
+    this.elListenModeBtn.classList.toggle('active', this.listenMode);
+    if (this.listenMode && this.speakMode) {
+      this.speakMode = false;
+      this.elSpeakModeBtn.classList.remove('active');
+    }
+    this._loadCard();
+  }
+
   _toggleSpeakMode() {
+    if (!this.speakMode && this.listenMode) {
+      this.listenMode = false;
+      this.elListenModeBtn.classList.remove('active');
+    }
     if (typeof window.SpeechSDK === 'undefined') {
       this.elSpeakModeBtn.textContent = '⏳ Loading…';
       this.elSpeakModeBtn.disabled = true;
@@ -268,11 +291,18 @@ class VocabApp {
     if (this.reverseMode) {
       this.elPromptWord.textContent = entry.word;
       this.elPromptWord.classList.add('chinese-prompt');
+      this.elPromptWord.classList.remove('hidden');
       document.getElementById('vocab-input').placeholder = 'Type the English meaning…';
       document.querySelector('#vocab-input-phase .input-label').textContent = 'Type the English meaning:';
+    } else if (this.listenMode) {
+      this.elPromptWord.classList.add('hidden');
+      this.elPromptWord.classList.remove('chinese-prompt');
+      document.getElementById('vocab-input').placeholder = 'Type what you hear — characters or pinyin:';
+      document.querySelector('#vocab-input-phase .input-label').textContent = 'Type what you hear:';
+      setTimeout(() => Audio.speakChinese(entry.word), 350);
     } else {
       this.elPromptWord.textContent = entry.english;
-      this.elPromptWord.classList.remove('chinese-prompt');
+      this.elPromptWord.classList.remove('chinese-prompt', 'hidden');
       document.getElementById('vocab-input').placeholder = 'e.g., nǐ hǎo  or  你好';
       document.querySelector('#vocab-input-phase .input-label').textContent = 'Type the Chinese translation — pinyin or characters:';
     }
@@ -286,8 +316,12 @@ class VocabApp {
     this.elDrawBtn.classList.add('hidden');
     this.elSpeakBtn.classList.add('hidden');
 
-    // Speak mode vs type mode (speak mode disabled in reverse)
-    const useSpeakMode = this.speakMode && !this.reverseMode;
+    const useListenMode = this.listenMode && !this.reverseMode;
+    const useSpeakMode  = this.speakMode  && !this.reverseMode && !useListenMode;
+
+    this.elPlayAgainRow.classList.toggle('hidden', !useListenMode);
+    this.elListenEnglish.classList.add('hidden');
+
     this.elInput.classList.toggle('hidden', useSpeakMode);
     this.elInputLabel.classList.toggle('hidden', useSpeakMode);
     this.elInputActions.classList.toggle('hidden', useSpeakMode);
@@ -295,7 +329,7 @@ class VocabApp {
     this.elPronRow.classList.add('hidden');
 
     this._updateProgress();
-    if (!useSpeakMode) setTimeout(() => this.elInput.focus(), 60);
+    if (!useSpeakMode && !useListenMode) setTimeout(() => this.elInput.focus(), 60);
   }
 
   // ── Actions ───────────────────────────────────────────────────────────────
@@ -336,6 +370,12 @@ class VocabApp {
 
     // Auto-speak the Chinese word
     Audio.speakChinese(entry.word);
+
+    // Listen mode: reveal the English meaning
+    if (this.listenMode && !this.reverseMode) {
+      this.elListenEnglish.textContent = entry.english;
+      this.elListenEnglish.classList.remove('hidden');
+    }
 
     this.elInputPhase.classList.add('hidden');
     this.elAnswerPhase.classList.remove('hidden');

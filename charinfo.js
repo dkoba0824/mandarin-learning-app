@@ -115,7 +115,7 @@ const CharInfo = (() => {
     for (const s of pool) {
       if (s.characters && s.characters.includes(char)) {
         out.push(s);
-        if (out.length >= 2) break;
+        if (out.length >= 4) break;
       }
     }
     return out;

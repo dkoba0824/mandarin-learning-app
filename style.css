@@ -1111,3 +1111,41 @@ kbd {
   color: #d4700a;
   border-color: rgba(212,112,10,.3);
 }
+
+/* ── Listening mode ───────────────────────────────────────────── */
+/* Play-again button */
+.btn-play-again {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 16px 24px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  background: transparent;
+  color: var(--red);
+  border: 2px solid var(--red);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+  margin-top: 8px;
+}
+.btn-play-again:hover { background: var(--red); color: #fff; }
+
+/* Listen mode hint below play-again button */
+.listen-hint {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: .82rem;
+  margin: 6px 0 0;
+}
+
+/* English meaning revealed in answer phase (listen mode) */
+.listen-english {
+  font-size: .95rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 4px 0 0;
+  text-align: center;
+}

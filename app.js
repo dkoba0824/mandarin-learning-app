@@ -53,6 +53,7 @@ class FlashcardApp {
     this.hintCount    = 0; // how many times hint shown for current card
     this.reverseMode  = false; // Chinese → English when true
     this.speakMode    = false; // Azure pronunciation assessment mode
+    this.listenMode   = false; // Audio plays, user types what they hear
 
     this._bindElements();
     this._bindLevelEvents();
@@ -84,12 +85,15 @@ class FlashcardApp {
     this.elDrawBtn      = document.getElementById('draw-btn');
     this.elSpeakBtn     = document.getElementById('speak-btn');
     this.elReverseBtn   = document.getElementById('reverse-btn');
-    this.elSpeakModeBtn = document.getElementById('speak-mode-btn');
-    this.elMicRow       = document.getElementById('speak-mic-row');
-    this.elMicBtn       = document.getElementById('mic-btn');
-    this.elPronRow      = document.getElementById('pron-scores-row');
-    this.elInputLabel   = document.querySelector('.input-label');
-    this.elInputActions = document.querySelector('.input-actions');
+    this.elSpeakModeBtn  = document.getElementById('speak-mode-btn');
+    this.elListenModeBtn = document.getElementById('listen-mode-btn');
+    this.elMicRow        = document.getElementById('speak-mic-row');
+    this.elMicBtn        = document.getElementById('mic-btn');
+    this.elPronRow       = document.getElementById('pron-scores-row');
+    this.elPlayAgainRow  = document.getElementById('play-again-row');
+    this.elListenEnglish = document.getElementById('listen-english');
+    this.elInputLabel    = document.querySelector('.input-label');
+    this.elInputActions  = document.querySelector('.input-actions');
   }
 
   // ── Events ────────────────────────────────────────────────────────────────
@@ -111,8 +115,13 @@ class FlashcardApp {
       if (card) Audio.speakChinese(card.characters);
     });
     document.getElementById('reverse-btn').addEventListener('click', () => this._toggleReverse());
-    document.getElementById('speak-mode-btn').addEventListener('click', () => this._toggleSpeakMode());
-    document.getElementById('mic-btn').addEventListener('click', () => this._startListening());
+    document.getElementById('speak-mode-btn') .addEventListener('click', () => this._toggleSpeakMode());
+    document.getElementById('listen-mode-btn').addEventListener('click', () => this._toggleListenMode());
+    document.getElementById('mic-btn')         .addEventListener('click', () => this._startListening());
+    document.getElementById('play-again-btn')  .addEventListener('click', () => {
+      const card = this.deck[this.index];
+      if (card) Audio.speakChinese(card.characters);
+    });
 
     // Category filter
     document.getElementById('category-nav').addEventListener('click', e => {
@@ -142,7 +151,23 @@ class FlashcardApp {
     this._updateStats();
   }
 
+  _toggleListenMode() {
+    this.listenMode = !this.listenMode;
+    this.elListenModeBtn.classList.toggle('active', this.listenMode);
+    // Mutually exclusive with speak mode
+    if (this.listenMode && this.speakMode) {
+      this.speakMode = false;
+      this.elSpeakModeBtn.classList.remove('active');
+    }
+    this._loadCard();
+  }
+
   _toggleSpeakMode() {
+    // Mutually exclusive with listen mode
+    if (!this.speakMode && this.listenMode) {
+      this.listenMode = false;
+      this.elListenModeBtn.classList.remove('active');
+    }
     // Lazy-load the Azure SDK on first use
     if (typeof window.SpeechSDK === 'undefined') {
       this.elSpeakModeBtn.textContent = '⏳ Loading…';
@@ -309,15 +334,24 @@ class FlashcardApp {
 
     if (this.reverseMode) {
       // Chinese → English: show characters + pinyin, answer in English
-      this.elEnglish.textContent     = card.characters;
+      this.elEnglish.textContent = card.characters;
       this.elEnglish.classList.add('chinese-prompt');
+      this.elEnglish.classList.remove('hidden');
       document.getElementById('prompt-pinyin').textContent = card.pinyin;
       document.getElementById('prompt-pinyin').classList.remove('hidden');
       document.getElementById('answer-input').placeholder = 'Type the English meaning…';
       document.querySelector('.input-label').textContent   = 'Type the English meaning:';
-    } else {
-      this.elEnglish.textContent     = card.english;
+    } else if (this.listenMode) {
+      // Listen mode: hide English, auto-play audio
+      this.elEnglish.classList.add('hidden');
       this.elEnglish.classList.remove('chinese-prompt');
+      document.getElementById('prompt-pinyin').classList.add('hidden');
+      document.getElementById('answer-input').placeholder = 'Type what you hear — characters or pinyin:';
+      document.querySelector('.input-label').textContent   = 'Type what you hear:';
+      setTimeout(() => Audio.speakChinese(card.characters), 350);
+    } else {
+      this.elEnglish.textContent = card.english;
+      this.elEnglish.classList.remove('chinese-prompt', 'hidden');
       document.getElementById('prompt-pinyin').classList.add('hidden');
       document.getElementById('answer-input').placeholder = 'e.g., Wǒ shì xuéshēng  or  我是学生';
       document.querySelector('.input-label').textContent   = 'Type the Chinese translation — pinyin or characters:';
@@ -335,8 +369,14 @@ class FlashcardApp {
     this.elDrawBtn.classList.add('hidden');
     this.elSpeakBtn.classList.add('hidden');
 
-    // Speak mode vs type mode (speak mode disabled in reverse)
-    const useSpeakMode = this.speakMode && !this.reverseMode;
+    const useListenMode = this.listenMode && !this.reverseMode;
+    const useSpeakMode  = this.speakMode  && !this.reverseMode && !useListenMode;
+
+    // Play-again row (listen mode only)
+    this.elPlayAgainRow.classList.toggle('hidden', !useListenMode);
+    this.elListenEnglish.classList.add('hidden');
+
+    // Speak mode (mic) vs type input
     this.elInput.classList.toggle('hidden', useSpeakMode);
     this.elInputLabel.classList.toggle('hidden', useSpeakMode);
     this.elInputActions.classList.toggle('hidden', useSpeakMode);
@@ -344,7 +384,7 @@ class FlashcardApp {
     this.elPronRow.classList.add('hidden');
 
     this._updateProgress();
-    if (!useSpeakMode) setTimeout(() => this.elInput.focus(), 60);
+    if (!useSpeakMode && !useListenMode) setTimeout(() => this.elInput.focus(), 60);
   }
 
   // ── Actions ───────────────────────────────────────────────────────────────
@@ -387,6 +427,12 @@ class FlashcardApp {
 
     // Auto-speak Chinese answer
     Audio.speakChinese(card.characters);
+
+    // Listen mode: reveal the English meaning in the answer box
+    if (this.listenMode && !this.reverseMode) {
+      this.elListenEnglish.textContent = card.english;
+      this.elListenEnglish.classList.remove('hidden');
+    }
 
     this.elInputPhase.classList.add('hidden');
     this.elAnswerPhase.classList.remove('hidden');
