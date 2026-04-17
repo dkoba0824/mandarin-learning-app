@@ -136,9 +136,27 @@ const CharInfo = (() => {
     return out;
   }
 
+  // ── Extract meaning from a wikitext Chinese section ──────────────────────
+  function _meaningFromWikitext(wt) {
+    const chSection = wt.split(/\n==(?:Chinese|Mandarin)==\n/)[1] || wt;
+    const defLines  = chSection.match(/^# (.+)$/mg) || [];
+    const defs = defLines.slice(0, 3)
+      .map(l => l.replace(/^# /, '')
+        .replace(/\{\{(?:n-g|non-gloss definition?)\|([^}]*)\}\}/gi, '$1')
+        .replace(/\{\{(?:lb|label|tlb|senseid|defdate|zh-see)[^}]*\}\}/gi, '')
+        .replace(/\[\[([^\]|]*\|)?([^\]]+)\]\]/g, '$2')
+        .replace(/\{\{[^}]*\}\}/g, '')
+        .replace(/'''([^']+)'''/g, '$1')
+        .replace(/''([^']+)''/g, '$1')
+        .replace(/\s+/g, ' ')
+        .replace(/[;,]\s*$/, '').trim())
+      .filter(Boolean);
+    return defs.length ? defs.join('; ') : null;
+  }
+
   // ── Wiktionary data fetch + parse ─────────────────────────────────────────
   async function fetchData(char) {
-    const key = `ci4_${char}`;
+    const key = `ci5_${char}`;
     const hit = sessionStorage.getItem(key);
     if (hit) return JSON.parse(hit);
 
@@ -180,19 +198,25 @@ const CharInfo = (() => {
       }
 
       // Meaning: parse definition lines from ==Chinese== section
-      // Wikitext format: "# [[gloss]]" lines under part-of-speech headers
-      const chSection = wt.split(/\n==(?:Chinese|Mandarin)==\n/)[1] || wt;
-      const defLines  = chSection.match(/^# (.+)$/mg) || [];
-      if (defLines.length) {
-        const defs = defLines.slice(0, 3)
-          .map(l => l.replace(/^# /, '')
-            .replace(/\[\[([^\]|]*\|)?([^\]]+)\]\]/g, '$2') // [[link|text]] → text
-            .replace(/\{\{[^}]*\}\}/g, '')                  // remove templates
-            .replace(/'''([^']+)'''/g, '$1')                // bold
-            .replace(/''([^']+)''/g, '$1')                  // italic
-            .replace(/;$/, '').trim())
-          .filter(Boolean);
-        if (defs.length) r.meaning = defs.join('; ');
+      r.meaning = _meaningFromWikitext(wt);
+
+      // If no meaning found, check for {{zh-see|CANONICAL}} redirect (simplified→traditional)
+      if (!r.meaning) {
+        const chSection = wt.split(/\n==(?:Chinese|Mandarin)==\n/)[1] || wt;
+        const seeM = chSection.match(/\{\{zh-see\|([^|}]+)/);
+        if (seeM) {
+          const canonical = seeM[1].trim();
+          try {
+            const rRes = await fetch(
+              `https://en.wiktionary.org/w/api.php?action=parse&page=${encodeURIComponent(canonical)}&prop=wikitext&format=json&origin=*`
+            );
+            if (rRes.ok) {
+              const rd  = await rRes.json();
+              const rwt = rd.parse?.wikitext?.['*'] || '';
+              r.meaning = _meaningFromWikitext(rwt);
+            }
+          } catch (_) { /* ignore redirect failures */ }
+        }
       }
     }
 
