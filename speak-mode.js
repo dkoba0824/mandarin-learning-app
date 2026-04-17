@@ -56,6 +56,9 @@ const SpeakMode = (() => {
 
     const speechConfig = SDK.SpeechConfig.fromAuthorizationToken(token, region);
     speechConfig.speechRecognitionLanguage = 'zh-CN';
+    // Shorten the silence-after-speech window so results arrive ~1.5 s after you stop talking
+    speechConfig.setProperty('SpeechServiceConnection_EndSilenceTimeoutMs', '1500');
+    speechConfig.setProperty('SpeechServiceConnection_InitialSilenceTimeoutMs', '5000');
 
     const pronConfig = new SDK.PronunciationAssessmentConfig(
       referenceText,
@@ -72,7 +75,7 @@ const SpeakMode = (() => {
     const audioCtx  = new AudioContext();
     const src       = audioCtx.createMediaStreamSource(rawStream);
     const gainNode  = audioCtx.createGain();
-    gainNode.gain.value = 2.5;          // amplify quiet input ~2.5×
+    gainNode.gain.value = 4.0;          // amplify quiet input ~4×
     const dest      = audioCtx.createMediaStreamDestination();
     src.connect(gainNode);
     gainNode.connect(dest);
