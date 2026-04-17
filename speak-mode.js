@@ -64,9 +64,27 @@ const SpeakMode = (() => {
       true // enableMiscue — flag words not in the reference text
     );
 
-    const audioConfig = SDK.AudioConfig.fromDefaultMicrophoneInput();
+    // Boost mic gain so quieter voices are picked up reliably.
+    // getUserMedia with autoGainControl:false lets us apply our own gain.
+    const rawStream = await navigator.mediaDevices.getUserMedia({
+      audio: { autoGainControl: false, echoCancellation: true, noiseSuppression: true }
+    });
+    const audioCtx  = new AudioContext();
+    const src       = audioCtx.createMediaStreamSource(rawStream);
+    const gainNode  = audioCtx.createGain();
+    gainNode.gain.value = 2.5;          // amplify quiet input ~2.5×
+    const dest      = audioCtx.createMediaStreamDestination();
+    src.connect(gainNode);
+    gainNode.connect(dest);
+
+    const audioConfig = SDK.AudioConfig.fromStreamInput(dest.stream);
     const recognizer  = new SDK.SpeechRecognizer(speechConfig, audioConfig);
     pronConfig.applyTo(recognizer);
+
+    const _cleanup = () => {
+      rawStream.getTracks().forEach(t => t.stop());
+      audioCtx.close();
+    };
 
     if (onListening) onListening();
 
@@ -74,6 +92,7 @@ const SpeakMode = (() => {
       recognizer.recognizeOnceAsync(
         result => {
           recognizer.close();
+          _cleanup();
 
           if (result.reason === SDK.ResultReason.RecognizedSpeech) {
             const pron  = SDK.PronunciationAssessmentResult.fromResult(result);
@@ -101,6 +120,7 @@ const SpeakMode = (() => {
         },
         err => {
           recognizer.close();
+          _cleanup();
           reject(new Error(String(err)));
         }
       );
