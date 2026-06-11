@@ -550,6 +550,14 @@ kbd {
   border-color: var(--red);
   color: var(--red);
 }
+.lc-btn-list {
+  border-color: var(--green);
+  color: var(--green);
+}
+.lc-btn-list:hover {
+  background: var(--green) !important;
+  color: #fff !important;
+}
 .level-card.hsk2 .lc-btn,
 .level-card.hsk2 .lc-btn-vocab,
 .lc-btn-vocab.hsk2 {
@@ -561,6 +569,10 @@ kbd {
 .lc-btn-vocab.hsk2:hover {
   background: var(--gold);
   color: #fff;
+}
+.lc-btn-list.hsk2 {
+  border-color: var(--blue);
+  color: var(--blue);
 }
 
 /* ── Vocab page subtitle ──────────────────────────────────────────────────── */

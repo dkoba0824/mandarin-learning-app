@@ -226,7 +226,6 @@ class VocabApp {
   }
 
   // ── Setup ───────────────────────────────────────────────────────────────
-  _setLevelUI() { ─────────────────────────────────────────────────────────────────
   _setLevelUI() {
     this.elLevelBadge.textContent = this.level;
     document.title = `${this.level} Vocab Trainer`;
