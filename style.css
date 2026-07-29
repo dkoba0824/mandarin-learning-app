@@ -458,6 +458,7 @@ kbd {
   box-shadow: 0 8px 32px rgba(0,0,0,.13);
 }
 .level-card.hsk2:hover { border-color: var(--gold); }
+.level-card.hsk3:hover { border-color: var(--blue); }
 
 .lc-top {
   display: flex;
@@ -475,6 +476,7 @@ kbd {
   letter-spacing: .05em;
 }
 .level-card.hsk2 .lc-badge { background: var(--gold); }
+.level-card.hsk3 .lc-badge { background: var(--blue); }
 
 .lc-chars {
   font-size: 2rem;
@@ -525,11 +527,13 @@ kbd {
 /* ── Level card: dual action buttons ─────────────────────────────────────── */
 .lc-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-top: 12px;
 }
 .lc-btn {
-  flex: 1;
+  flex: 1 1 calc(50% - 10px);
+  min-width: 120px;
   padding: 9px 0;
   border-radius: 8px;
   font-size: .88rem;
@@ -558,6 +562,14 @@ kbd {
   background: var(--green) !important;
   color: #fff !important;
 }
+.lc-btn-listen {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+.lc-btn-listen:hover {
+  background: var(--blue) !important;
+  color: #fff !important;
+}
 .level-card.hsk2 .lc-btn,
 .level-card.hsk2 .lc-btn-vocab,
 .lc-btn-vocab.hsk2 {
@@ -573,6 +585,23 @@ kbd {
 .lc-btn-list.hsk2 {
   border-color: var(--blue);
   color: var(--blue);
+}
+.level-card.hsk2 .lc-btn-listen,
+.lc-btn-listen.hsk2 {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+.level-card.hsk3 .lc-btn,
+.level-card.hsk3 .lc-btn-listen,
+.lc-btn-listen.hsk3 {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+.level-card.hsk3 .lc-btn:hover,
+.level-card.hsk3 .lc-btn-listen:hover,
+.lc-btn-listen.hsk3:hover {
+  background: var(--blue);
+  color: #fff;
 }
 
 /* ── Vocab page subtitle ──────────────────────────────────────────────────── */
@@ -857,6 +886,30 @@ kbd {
 }
 .btn-draw:hover { background: var(--blue); color: #fff; }
 .draw-row { display: flex; justify-content: center; gap: 10px; margin-top: 0; }
+
+/* ─── LISTENING LAB ─────────────────────────────────────────────────────── */
+.ll-play-row {
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.ll-answer-input {
+  width: 100%;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  line-height: 1.45;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 110px;
+}
+
+.ll-answer-input:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(41, 128, 185, .14);
+}
 
 /* Speak button (same style as draw, different accent) */
 .btn-speak {

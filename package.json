@@ -1,0 +1,15 @@
+{
+  "name": "mandarin-learning-app",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Mandarin learning app with static frontend and Vercel serverless API",
+  "scripts": {
+    "dev": "serve . -l 5173",
+    "dev:vercel": "vercel dev",
+    "start": "serve . -l 5173"
+  },
+  "devDependencies": {
+    "serve": "^14.2.4",
+    "vercel": "^39.2.0"
+  }
+}

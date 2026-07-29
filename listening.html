@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HSK Listening Lab</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="header-left">
+      <a class="back-btn" href="index.html">← Home</a>
+      <span class="logo">汉字</span>
+      <h1>Listening Lab</h1>
+      <span class="level-badge" id="ll-level-badge">HSK 1</span>
+    </div>
+    <div class="header-right">
+      <span id="ll-progress">Dialogue 1 of 3</span>
+      <span class="divider">|</span>
+      <span id="ll-score">Avg: —</span>
+    </div>
+  </header>
+
+  <div class="progress-track">
+    <div class="progress-fill" id="ll-progress-fill"></div>
+  </div>
+
+  <p class="vocab-page-sub">Play a short Chinese dialogue, answer the question, and get AI feedback.</p>
+
+  <nav class="category-nav" id="ll-level-nav">
+    <button class="cat-btn active" data-level="HSK1">HSK 1</button>
+    <button class="cat-btn" data-level="HSK2">HSK 2</button>
+    <button class="cat-btn" data-level="HSK3">HSK 3</button>
+  </nav>
+
+  <main>
+    <div class="card">
+      <span class="card-cat" id="ll-title">Ordering Tea</span>
+      <p class="english" id="ll-instruction">Listen carefully, then answer in English or Chinese.</p>
+
+      <div class="pattern-note">
+        <span class="pattern-label">Question</span>
+        <span class="pattern-text" id="ll-question">What does B want to drink, and is it hot or cold?</span>
+      </div>
+
+      <div class="input-actions ll-play-row">
+        <button class="btn btn-primary" id="ll-play-btn">▶ Play Dialogue</button>
+        <button class="btn btn-ghost" id="ll-replay-btn">↻ Replay</button>
+      </div>
+      <p class="keyboard-hint" id="ll-status">Ready. Press Play to begin.</p>
+
+      <div id="ll-input-phase">
+        <label class="input-label" for="ll-answer-input">Your answer:</label>
+        <textarea id="ll-answer-input" class="ll-answer-input" rows="4" placeholder="Type your understanding here..."></textarea>
+        <div class="input-actions">
+          <button class="btn btn-primary" id="ll-grade-btn">AI Grade My Answer</button>
+        </div>
+      </div>
+
+      <div id="ll-result-phase" class="hidden">
+        <div class="your-answer">
+          <span class="ya-label">Your answer:</span>
+          <span class="ya-text" id="ll-ya-text"></span>
+        </div>
+
+        <div class="correct-box">
+          <p class="correct-label">Reference answer</p>
+          <p class="chars" id="ll-reference">B wants tea, and B wants it hot.</p>
+          <p class="pinyin" id="ll-feedback">Feedback will appear here.</p>
+        </div>
+
+        <div class="grade-row">
+          <button class="btn btn-success" id="ll-next-btn">Next Dialogue →</button>
+          <button class="btn btn-ghost" id="ll-show-transcript-btn">Show transcript</button>
+        </div>
+
+        <div class="pattern-note hidden" id="ll-transcript-box">
+          <span class="pattern-label">Transcript</span>
+          <span class="pattern-text" id="ll-transcript-text"></span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="audio.js"></script>
+  <script src="listening-data.js"></script>
+  <script src="listening.js"></script>
+</body>
+</html>

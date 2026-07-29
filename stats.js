@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const DECKS = [
     { key: 'HSK1_sentences', label: 'HSK 1 Sentences', total: () => (window.SENTENCES || []).filter(c => (c.level || 'HSK1') === 'HSK1').length },
     { key: 'HSK2_sentences', label: 'HSK 2 Sentences', total: () => (window.SENTENCES || []).filter(c => c.level === 'HSK2').length },
+    { key: 'HSK3_sentences', label: 'HSK 3 Sentences', total: () => (window.SENTENCES || []).filter(c => c.level === 'HSK3').length },
     { key: 'HSK1_vocab',     label: 'HSK 1 Vocabulary', total: () => (window.HSK1_VOCAB || []).length },
     { key: 'HSK2_vocab',     label: 'HSK 2 Vocabulary', total: () => (window.HSK2_VOCAB || []).length },
   ];
@@ -64,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const LABEL = {
     HSK1_sentences: 'HSK1 S',
     HSK2_sentences: 'HSK2 S',
+    HSK3_sentences: 'HSK3 S',
     HSK1_vocab:     'HSK1 V',
     HSK2_vocab:     'HSK2 V',
   };

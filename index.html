@@ -19,6 +19,8 @@
         <span class="hs-sep">·</span>
         <span class="hs-item" id="hs-due"><b id="hs-due-num">0</b> cards due today</span>
         <span class="hs-sep">·</span>
+        <a class="hs-link" href="listening.html">🎧 Listening Lab</a>
+        <span class="hs-sep">·</span>
         <a class="hs-link" href="stats.html">📊 Stats</a>
       </div>
     </div>
@@ -30,7 +32,7 @@
           <span class="lc-chars">你好</span>
         </div>
         <div class="lc-title">Foundation</div>
-        <div class="lc-count">~135 sentences · 8 categories</div>
+        <div class="lc-count" id="hsk1-count">Loading sentence count...</div>
         <ul class="lc-list">
           <li>Core 150 vocabulary words</li>
           <li>Essential sentence structures</li>
@@ -38,6 +40,7 @@
         </ul>
         <div class="lc-actions">
           <button class="lc-btn" data-level="HSK1">📝 Sentences →</button>
+          <a class="lc-btn lc-btn-listen" href="listening.html?level=HSK1">🎧 Listening →</a>
           <a class="lc-btn lc-btn-vocab" href="vocab.html?level=HSK1">📖 Vocabulary →</a>
           <a class="lc-btn lc-btn-list" href="vocab-list.html?level=HSK1">📋 Word List →</a>
         </div>
@@ -49,7 +52,7 @@
           <span class="lc-chars">学习</span>
         </div>
         <div class="lc-title">Elementary</div>
-        <div class="lc-count">~80 sentences · 11 categories</div>
+        <div class="lc-count" id="hsk2-count">Loading sentence count...</div>
         <ul class="lc-list">
           <li>150 new HSK 2 words</li>
           <li>Longer, richer sentences</li>
@@ -57,8 +60,27 @@
         </ul>
         <div class="lc-actions">
           <button class="lc-btn" data-level="HSK2">📝 Sentences →</button>
+          <a class="lc-btn lc-btn-listen hsk2" href="listening.html?level=HSK2">🎧 Listening →</a>
           <a class="lc-btn lc-btn-vocab hsk2" href="vocab.html?level=HSK2">📖 Vocabulary →</a>
           <a class="lc-btn lc-btn-list hsk2" href="vocab-list.html?level=HSK2">📋 Word List →</a>
+        </div>
+      </div>
+
+      <div class="level-card hsk3">
+        <div class="lc-top">
+          <span class="lc-badge">HSK 3</span>
+          <span class="lc-chars">准备</span>
+        </div>
+        <div class="lc-title">Intermediate</div>
+        <div class="lc-count" id="hsk3-count">Loading sentence count...</div>
+        <ul class="lc-list">
+          <li>Conversation-ready sentence drills</li>
+          <li>Longer clauses and connectors</li>
+          <li>虽然, 可是, 应该, 觉得, 方便…</li>
+        </ul>
+        <div class="lc-actions">
+          <button class="lc-btn" data-level="HSK3">📝 Sentences →</button>
+          <a class="lc-btn lc-btn-listen hsk3" href="listening.html?level=HSK3">🎧 Listening →</a>
         </div>
       </div>
 
@@ -226,6 +248,7 @@
   <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
   <script src="db.js"></script>
   <script src="data.js"></script>
+  <script src="hsk3-sentences.js"></script>
   <script src="hsk1-vocab.js"></script>
   <script src="hsk2-vocab.js"></script>
   <script src="audio.js"></script>
@@ -239,6 +262,14 @@
       const { streak } = DB.getStreak();
       document.getElementById('hs-streak-num').textContent = streak;
       document.getElementById('hs-due-num').textContent    = DB.getDueCount();
+
+      const all = window.SENTENCES || [];
+      const hsk1 = all.filter(c => (c.level || 'HSK1') === 'HSK1').length;
+      const hsk2 = all.filter(c => c.level === 'HSK2').length;
+      const hsk3 = all.filter(c => c.level === 'HSK3').length;
+      document.getElementById('hsk1-count').textContent = `${hsk1} sentences · 11 categories`;
+      document.getElementById('hsk2-count').textContent = `${hsk2} sentences · 11 categories`;
+      document.getElementById('hsk3-count').textContent = `${hsk3} sentences · 11 categories`;
     });
   </script>
   <!-- ── DRAW MODAL ──────────────────────────────────────────── -->
