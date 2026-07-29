@@ -70,7 +70,10 @@ export default async function handler(req, res) {
 
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
-    return res.status(200).json(heuristicGrade(dialogue, userAnswer));
+    const fallback = heuristicGrade(dialogue, userAnswer);
+    fallback.feedback = `AI unavailable, used fallback grading. ${fallback.feedback}`;
+    fallback.aiError = 'OPENAI_API_KEY is missing in this deployment environment.';
+    return res.status(200).json(fallback);
   }
 
   const systemPrompt = [
