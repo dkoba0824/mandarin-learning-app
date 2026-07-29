@@ -152,9 +152,12 @@ class ListeningLab {
 
       this.elInputPhase.classList.add('hidden');
       this.elResultPhase.classList.remove('hidden');
-      this.elStatus.textContent = result.mode === 'heuristic'
-        ? 'Graded with fallback mode (set OPENAI_API_KEY for full AI grading).'
-        : 'Graded with AI.';
+      if (result.mode === 'heuristic') {
+        const reason = result.aiError ? ` Reason: ${result.aiError}` : '';
+        this.elStatus.textContent = `Graded with fallback mode (set OPENAI_API_KEY for full AI grading).${reason}`;
+      } else {
+        this.elStatus.textContent = 'Graded with AI.';
+      }
       this._updateHeader();
     } catch (err) {
       this.elStatus.textContent = `Grading failed: ${err.message}`;
