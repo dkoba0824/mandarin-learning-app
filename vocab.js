@@ -14,6 +14,46 @@ function normPin(str) {
 function normChars(str) {
   return str.replace(/[。，？！、：；""''【】《》]/g, '').trim();
 }
+
+function normEnglish(str) {
+  return str
+    .toLowerCase()
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function stripArticles(str) {
+  return str.replace(/\b(a|an|the)\b/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function englishGlossOptions(gloss) {
+  // Remove usage notes in parentheses, then split gloss variants like "I / me".
+  const base = String(gloss || '').replace(/\([^)]*\)/g, ' ');
+  const parts = base.split(/\s*\/\s*|\s*;\s*|\s*,\s*|\s+or\s+/i).filter(Boolean);
+  const list = parts.length ? parts : [base];
+  const out = new Set();
+
+  for (const item of list) {
+    const n = normEnglish(item);
+    if (!n) continue;
+    out.add(n);
+    out.add(stripArticles(n));
+    if (n.startsWith('to ')) out.add(n.slice(3));
+  }
+
+  return out;
+}
+
+function checkEnglishGlossMatch(input, gloss) {
+  const raw = normEnglish(input);
+  const noArt = stripArticles(raw);
+  if (!raw) return false;
+  const options = englishGlossOptions(gloss);
+  return options.has(raw) || options.has(noArt);
+}
+
 function checkVocabMatch(input, entry) {
   const u = input.trim();
   if (!u) return null;
@@ -339,8 +379,7 @@ class VocabApp {
     this.elYaText.textContent = input || '(no answer)';
 
     if (this.reverseMode) {
-      const norm = s => s.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
-      const match = norm(input) === norm(entry.english);
+      const match = checkEnglishGlossMatch(input, entry.english);
       if (match) {
         this.elMatchBadge.textContent = '✓ Correct!';
         this.elMatchBadge.className   = 'match-badge match';
